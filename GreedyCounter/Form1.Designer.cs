@@ -28,35 +28,122 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dlgSelectChatlog = new OpenFileDialog();
-            btnSelectChatlog = new Button();
-            SuspendLayout();
+            this.dlgSelectChatlog = new System.Windows.Forms.OpenFileDialog();
+            this.btnSelectChatlog = new System.Windows.Forms.Button();
+            this.btnCopytoClipboard = new System.Windows.Forms.Button();
+            this.tbChatlogPath = new System.Windows.Forms.TextBox();
+            this.lblChatlogPath = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.tbStatus = new System.Windows.Forms.TextBox();
+            this.tbOutput = new System.Windows.Forms.TextBox();
+            this.lblOutput = new System.Windows.Forms.Label();
+            this.SuspendLayout();
             // 
             // btnSelectChatlog
             // 
-            btnSelectChatlog.BackColor = Color.LightSalmon;
-            btnSelectChatlog.Location = new Point(12, 12);
-            btnSelectChatlog.Name = "btnSelectChatlog";
-            btnSelectChatlog.Size = new Size(485, 34);
-            btnSelectChatlog.TabIndex = 0;
-            btnSelectChatlog.Text = "Link to Chatlog";
-            btnSelectChatlog.UseVisualStyleBackColor = false;
-            btnSelectChatlog.Click += btnSelectChatlog_Click;
+            this.btnSelectChatlog.BackColor = System.Drawing.Color.LightSalmon;
+            this.btnSelectChatlog.Location = new System.Drawing.Point(12, 12);
+            this.btnSelectChatlog.Name = "btnSelectChatlog";
+            this.btnSelectChatlog.Size = new System.Drawing.Size(485, 34);
+            this.btnSelectChatlog.TabIndex = 0;
+            this.btnSelectChatlog.Text = "Link to Chatlog";
+            this.btnSelectChatlog.UseVisualStyleBackColor = false;
+            this.btnSelectChatlog.Click += new System.EventHandler(this.btnSelectChatlog_Click);
+            // 
+            // btnCopytoClipboard
+            // 
+            this.btnCopytoClipboard.BackColor = System.Drawing.Color.LightSalmon;
+            this.btnCopytoClipboard.Location = new System.Drawing.Point(12, 511);
+            this.btnCopytoClipboard.Name = "btnCopytoClipboard";
+            this.btnCopytoClipboard.Size = new System.Drawing.Size(485, 34);
+            this.btnCopytoClipboard.TabIndex = 0;
+            this.btnCopytoClipboard.Text = "Copy to Clipboard";
+            this.btnCopytoClipboard.UseVisualStyleBackColor = false;
+            this.btnCopytoClipboard.Click += new System.EventHandler(this.btnCopytoClipboard_Click);
+            // 
+            // tbChatlogPath
+            // 
+            this.tbChatlogPath.Location = new System.Drawing.Point(87, 49);
+            this.tbChatlogPath.Name = "tbChatlogPath";
+            this.tbChatlogPath.ReadOnly = true;
+            this.tbChatlogPath.Size = new System.Drawing.Size(410, 31);
+            this.tbChatlogPath.TabIndex = 1;
+            // 
+            // lblChatlogPath
+            // 
+            this.lblChatlogPath.AutoSize = true;
+            this.lblChatlogPath.Location = new System.Drawing.Point(12, 49);
+            this.lblChatlogPath.Name = "lblChatlogPath";
+            this.lblChatlogPath.Size = new System.Drawing.Size(78, 25);
+            this.lblChatlogPath.TabIndex = 2;
+            this.lblChatlogPath.Text = "Chatlog:";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(12, 548);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(64, 25);
+            this.lblStatus.TabIndex = 2;
+            this.lblStatus.Text = "Status:";
+            // 
+            // tbStatus
+            // 
+            this.tbStatus.Location = new System.Drawing.Point(82, 545);
+            this.tbStatus.Name = "tbStatus";
+            this.tbStatus.ReadOnly = true;
+            this.tbStatus.Size = new System.Drawing.Size(410, 31);
+            this.tbStatus.TabIndex = 1;
+            // 
+            // tbOutput
+            // 
+            this.tbOutput.Location = new System.Drawing.Point(12, 119);
+            this.tbOutput.Multiline = true;
+            this.tbOutput.Name = "tbOutput";
+            this.tbOutput.ReadOnly = true;
+            this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbOutput.Size = new System.Drawing.Size(485, 386);
+            this.tbOutput.TabIndex = 1;
+            // 
+            // lblOutput
+            // 
+            this.lblOutput.AutoSize = true;
+            this.lblOutput.Location = new System.Drawing.Point(12, 91);
+            this.lblOutput.Name = "lblOutput";
+            this.lblOutput.Size = new System.Drawing.Size(73, 25);
+            this.lblOutput.TabIndex = 2;
+            this.lblOutput.Text = "Output:";
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(509, 579);
-            Controls.Add(btnSelectChatlog);
-            Name = "Form1";
-            Text = "Greedy Counter";
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(509, 579);
+            this.Controls.Add(this.lblStatus);
+            this.Controls.Add(this.lblOutput);
+            this.Controls.Add(this.lblChatlogPath);
+            this.Controls.Add(this.tbStatus);
+            this.Controls.Add(this.tbOutput);
+            this.Controls.Add(this.tbChatlogPath);
+            this.Controls.Add(this.btnCopytoClipboard);
+            this.Controls.Add(this.btnSelectChatlog);
+            this.Name = "Form1";
+            this.Text = "Greedy Counter";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
 
         private OpenFileDialog dlgSelectChatlog;
         private Button btnSelectChatlog;
+        private Button btnCopytoClipboard;
+        private TextBox tbChatlogPath;
+        private Label lblChatlogPath;
+        private Label lblStatus;
+        private TextBox tbStatus;
+        private TextBox tbOutput;
+        private Label lblOutput;
     }
 }
