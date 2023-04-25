@@ -28,7 +28,7 @@ namespace GreedyCounter
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 1000;
             timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();
+
 
             tbStatus.Text = "Select the log file.";
         }
@@ -63,6 +63,7 @@ namespace GreedyCounter
                 Task.Run(async () => await MonitorFile(cts.Token), cts.Token);
 
                 tbStatus.Text = "Monitoring...";
+                timer.Start();
             }
         }
 
@@ -115,8 +116,8 @@ namespace GreedyCounter
             if ((input.Contains("delivers an overwhelming barrage against") && input.Contains(", causing some treasure to fall from their grip!"))
                 || (input.Contains("swings a devious blow against") && input.Contains(", jarring some treasure loose!"))
                 || (input.Contains("executes a masterful strike against ") && input.Contains(", who drops some treasure in surprise!"))
-                || (input.Contains("performs a powerful attack against ") && input.Contains(", and steals some loot in the process!"))
-                || (input.Contains("smiles"))) //this last condition is to be removed. Serves for testing only
+                || (input.Contains("performs a powerful attack against ") && input.Contains(", and steals some loot in the process!")))
+                //|| (input.Contains("smiles"))) //this last condition is to be removed. Serves for testing only
             {
                 return input.Split(" ")[1];
                 // Find the name
@@ -170,8 +171,7 @@ namespace GreedyCounter
             // Add the keypair to a string via stringbuilder
             foreach (KeyValuePair<string, int> kvp in cDict)
             {
-                //sb.AppendFormat("{0}: {1} \n", kvp.Key, kvp.Value.ToString());
-                sb.AppendLine(kvp.Key + ": " + kvp.Value.ToString());
+                sb.AppendLine($"{kvp.Key} : {kvp.Value.ToString()}"); ;
             }
             tbOutput.Text = sb.ToString();
         }
