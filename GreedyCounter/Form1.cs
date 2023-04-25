@@ -1,4 +1,5 @@
-using System.Windows.Forms;
+using System.Collections.Concurrent;
+using System.Text;
 
 namespace GreedyCounter
 {
@@ -10,10 +11,28 @@ namespace GreedyCounter
 
         OpenFileDialog dialog;
 
+        System.Windows.Forms.Timer timer;
+
+        string output;
+
+        //Initialize the concurrent dictionary;
+        ConcurrentDictionary<string, int> cDict = new ConcurrentDictionary<string, int>();
+
+        //Initialize a stringbuilder
+        StringBuilder sb = new StringBuilder();
+
         public Form1()
         {
             InitializeComponent();
+
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 1000;
+            timer.Tick += new EventHandler(timer_Tick);
+
+
+            tbStatus.Text = "Select the log file.";
         }
+
 
         private void btnSelectChatlog_Click(object sender, EventArgs e)
         {
@@ -26,8 +45,8 @@ namespace GreedyCounter
                 CheckPathExists = true,
 
                 DefaultExt = "txt",
-                Filter = "txt files (*.txt)|*.txt",
-                FilterIndex = 2,
+                //Filter = "txt files (*.txt)|*.txt",
+                //FilterIndex = 2,
                 RestoreDirectory = true,
             };
 
@@ -35,6 +54,16 @@ namespace GreedyCounter
             {
                 FileName = dialog.FileName;
                 lastReadPosition = new FileInfo(FileName).Length;
+                tbChatlogPath.Text = FileName;
+
+                // Create a CancellationTokenSource to allow cancellation of the monitoring operation
+                var cts = new CancellationTokenSource();
+
+                // Start the monitoring operation in a separate task
+                Task.Run(async () => await MonitorFile(cts.Token), cts.Token);
+
+                tbStatus.Text = "Monitoring...";
+                timer.Start();
             }
         }
 
@@ -88,8 +117,9 @@ namespace GreedyCounter
                 || (input.Contains("swings a devious blow against") && input.Contains(", jarring some treasure loose!"))
                 || (input.Contains("executes a masterful strike against ") && input.Contains(", who drops some treasure in surprise!"))
                 || (input.Contains("performs a powerful attack against ") && input.Contains(", and steals some loot in the process!")))
+                //|| (input.Contains("smiles"))) //this last condition is to be removed. Serves for testing only
             {
-                return input.Split(" ")[0];
+                return input.Split(" ")[1];
                 // Find the name
             }
             return string.Empty;
@@ -97,7 +127,27 @@ namespace GreedyCounter
 
         private void AppendTextToOutput(string text)
         {
+            int value = 1;
+            int currValue = 0;
             // Add the stuff to a concurrent dictionary. Make that re-render on the UI thread every second or so?
+            // check if key exists
+            if (!cDict.ContainsKey(text))
+            //key does not exist
+            {
+                //add new key pair
+                if (cDict.TryAdd(text, value)) ;
+            }
+            else
+            //key already exists. update the value
+            {
+                //get the current value
+                if (cDict.TryGetValue(text, out currValue))
+                {
+                    // +1 to the current value
+                    if (cDict.TryUpdate(text, currValue + 1, currValue)) ;
+                }
+            }
+
 
 
             /*
@@ -111,5 +161,28 @@ namespace GreedyCounter
                 textBoxOutput.AppendText($"{text}{Environment.NewLine}");
             }*/
         }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+
+            //updates the Output text box
+            sb.Clear();
+            sb.AppendLine("Greedy Count:");
+            // Add the keypair to a string via stringbuilder
+            foreach (KeyValuePair<string, int> kvp in cDict)
+            {
+                sb.AppendLine($"{kvp.Key} : {kvp.Value.ToString()}"); ;
+            }
+            tbOutput.Text = sb.ToString();
+        }
+
+        private async void btnCopytoClipboard_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(tbOutput.Text);
+            tbStatus.Text = "Copied!";
+            await Task.Delay(500);
+            tbStatus.Text = "Monitoring...";
+        }
+
     }
 }
