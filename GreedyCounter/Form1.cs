@@ -184,5 +184,12 @@ namespace GreedyCounter
             tbStatus.Text = "Monitoring...";
         }
 
+        private async void btnResetCounter_Click(object sender, EventArgs e)
+        {
+            cDict.Clear();
+            tbStatus.Text = "Counter was reset!";
+            await Task.Delay(500);
+            tbStatus.Text = "Monitoring...";
+        }
     }
 }

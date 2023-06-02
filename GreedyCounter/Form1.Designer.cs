@@ -37,6 +37,7 @@
             this.tbStatus = new System.Windows.Forms.TextBox();
             this.tbOutput = new System.Windows.Forms.TextBox();
             this.lblOutput = new System.Windows.Forms.Label();
+            this.btnResetCounter = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnSelectChatlog
@@ -53,9 +54,9 @@
             // btnCopytoClipboard
             // 
             this.btnCopytoClipboard.BackColor = System.Drawing.Color.LightSalmon;
-            this.btnCopytoClipboard.Location = new System.Drawing.Point(12, 511);
+            this.btnCopytoClipboard.Location = new System.Drawing.Point(174, 511);
             this.btnCopytoClipboard.Name = "btnCopytoClipboard";
-            this.btnCopytoClipboard.Size = new System.Drawing.Size(485, 34);
+            this.btnCopytoClipboard.Size = new System.Drawing.Size(323, 34);
             this.btnCopytoClipboard.TabIndex = 0;
             this.btnCopytoClipboard.Text = "Copy to Clipboard";
             this.btnCopytoClipboard.UseVisualStyleBackColor = false;
@@ -114,11 +115,23 @@
             this.lblOutput.TabIndex = 2;
             this.lblOutput.Text = "Output:";
             // 
+            // btnResetCounter
+            // 
+            this.btnResetCounter.BackColor = System.Drawing.Color.LightSalmon;
+            this.btnResetCounter.Location = new System.Drawing.Point(12, 511);
+            this.btnResetCounter.Name = "btnResetCounter";
+            this.btnResetCounter.Size = new System.Drawing.Size(156, 34);
+            this.btnResetCounter.TabIndex = 3;
+            this.btnResetCounter.Text = "Reset Counter";
+            this.btnResetCounter.UseVisualStyleBackColor = false;
+            this.btnResetCounter.Click += new System.EventHandler(this.btnResetCounter_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(509, 579);
+            this.Controls.Add(this.btnResetCounter);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblOutput);
             this.Controls.Add(this.lblChatlogPath);
@@ -145,5 +158,6 @@
         private TextBox tbStatus;
         private TextBox tbOutput;
         private Label lblOutput;
+        private Button btnResetCounter;
     }
 }
