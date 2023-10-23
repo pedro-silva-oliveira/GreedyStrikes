@@ -20,6 +20,8 @@ namespace GreedyCounter
 
         //Initialize a stringbuilder
         StringBuilder sb = new StringBuilder();
+        private int totalCount;
+        private string exportString;
 
         public Form1()
         {
@@ -88,6 +90,7 @@ namespace GreedyCounter
                                 {
                                     string line = await reader.ReadLineAsync();
                                     var striker = UserPerformedStrike(line);
+                                    totalCount = totalCount + 1;
 
                                     if (!string.IsNullOrEmpty(striker))
                                     {
@@ -167,7 +170,7 @@ namespace GreedyCounter
 
             //updates the Output text box
             sb.Clear();
-            sb.AppendLine("Greedy Count:");
+            sb.AppendLine("Total Greedy Count:");
             // Add the keypair to a string via stringbuilder
             foreach (KeyValuePair<string, int> kvp in cDict)
             {
@@ -178,7 +181,8 @@ namespace GreedyCounter
 
         private async void btnCopytoClipboard_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(tbOutput.Text);
+            exportString = tbOutput.Text.Replace(System.Environment.NewLine, ";");
+            Clipboard.SetText(exportString);
             tbStatus.Text = "Copied!";
             await Task.Delay(500);
             tbStatus.Text = "Monitoring...";
