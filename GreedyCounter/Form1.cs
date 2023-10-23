@@ -90,11 +90,12 @@ namespace GreedyCounter
                                 {
                                     string line = await reader.ReadLineAsync();
                                     var striker = UserPerformedStrike(line);
-                                    totalCount = totalCount + 1;
+                                    
 
                                     if (!string.IsNullOrEmpty(striker))
                                     {
                                         AppendTextToOutput(striker);
+                                        totalCount = totalCount + 1;
                                     }
                                 }
 
@@ -170,18 +171,18 @@ namespace GreedyCounter
 
             //updates the Output text box
             sb.Clear();
-            sb.AppendLine("Total Greedy Count:");
+            sb.AppendLine("Total Greedy Count: " + totalCount + ";");
             // Add the keypair to a string via stringbuilder
             foreach (KeyValuePair<string, int> kvp in cDict)
             {
-                sb.AppendLine($"{kvp.Key} : {kvp.Value.ToString()}"); ;
+                sb.AppendLine($"{kvp.Key}: {kvp.Value.ToString()}"); ;
             }
             tbOutput.Text = sb.ToString();
         }
 
         private async void btnCopytoClipboard_Click(object sender, EventArgs e)
         {
-            exportString = tbOutput.Text.Replace(System.Environment.NewLine, ";");
+            exportString = tbOutput.Text.Replace(System.Environment.NewLine, "; ");
             Clipboard.SetText(exportString);
             tbStatus.Text = "Copied!";
             await Task.Delay(500);
@@ -191,6 +192,7 @@ namespace GreedyCounter
         private async void btnResetCounter_Click(object sender, EventArgs e)
         {
             cDict.Clear();
+            totalCount = 0;
             tbStatus.Text = "Counter was reset!";
             await Task.Delay(500);
             tbStatus.Text = "Monitoring...";
